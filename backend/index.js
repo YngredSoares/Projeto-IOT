@@ -2,6 +2,7 @@ const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://broker.hivemq.com');
+const { criarRelatorio } = require('./controller/relatorioController');
 
 const app = express();
 const PORT = 3000;
@@ -23,6 +24,10 @@ client.on('connect', () => {
 });
 
 client.on('message', (topic, message) => {
-  const payload = message.toString();
-  console.log('Dados recebidos:', payload);
+    try {
+        const payload = JSON.parse(message.toString());
+        criarRelatorio(payload);
+    } catch(err) {
+        console.log({error: err})
+    }
 });
