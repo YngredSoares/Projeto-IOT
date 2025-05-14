@@ -8,17 +8,18 @@ exports.criarRelatorio = async function(payload) {
             umidade: payload.umidade
         });
 
-        await novoRelatorio.save();
+        const relatorio = await novoRelatorio.save();
+        res.status(201).json(relatorio);
     } catch (err) {
-        console,log({error: err})
+        res.status(404).send({error: err});
     }
 }
 
 exports.exibirRelatorio = async function(req, res) {
     try {
         const relatorios = await Relatorio.find().sort({ createdAt: -1 });
-        res.json(relatorios);
+        res.status(200).json(relatorios);
     } catch(err) {
-        throw new Error(err);
+        res.status(404).send({error: err});
     }
 }

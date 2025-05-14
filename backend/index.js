@@ -2,12 +2,12 @@ const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://broker.hivemq.com');
-const rotasRelatorio = require('./rotas/rotasRelatorio');
+const rotasRelatorio = require('./router/rotasRelatorio');
 const relatorioController = require('./controller/relatorioController');
-
-const app = express();
-app.use(express.json())
 const PORT = 3000;
+const app = express();
+
+app.use(express.json())
 
 conectarDB();
 
