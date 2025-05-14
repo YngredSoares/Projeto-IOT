@@ -8,9 +8,17 @@ exports.criarRelatorio = async function(payload) {
             umidade: payload.umidade
         });
 
-        let relatorio = await novoRelatorio.save();
-        console.log(relatorio);
+        await novoRelatorio.save();
     } catch (err) {
         console,log({error: err})
+    }
+}
+
+exports.exibirRelatorio = async function(req, res) {
+    try {
+        const relatorios = await Relatorio.find().sort({ createdAt: -1 });
+        res.json(relatorios);
+    } catch(err) {
+        throw new Error(err);
     }
 }

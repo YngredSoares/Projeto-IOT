@@ -2,9 +2,11 @@ const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://broker.hivemq.com');
-const { criarRelatorio } = require('./controller/relatorioController');
+const rotasRelatorio = require('./rotas/rotasRelatorio');
+const relatorioController = require('./controller/relatorioController');
 
 const app = express();
+app.use(express.json())
 const PORT = 3000;
 
 conectarDB();
@@ -12,6 +14,8 @@ conectarDB();
 app.get('/', (req, res)=>{
     res.send('Servidor funcionando!')
 });
+
+app.use('/relatorio', rotasRelatorio);
 
 app.listen(PORT, ()=>{
     console.log(`Servidor rodando na porta ${PORT}`)
@@ -26,7 +30,7 @@ client.on('connect', () => {
 client.on('message', (topic, message) => {
     try {
         const payload = JSON.parse(message.toString());
-        criarRelatorio(payload);
+        relatorioController.criarRelatorio(payload);
     } catch(err) {
         console.log({error: err})
     }
