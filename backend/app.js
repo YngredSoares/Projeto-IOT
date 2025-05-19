@@ -4,6 +4,7 @@ const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://broker.hivemq.com');
 const rotasRelatorio = require('./rotas/rotasRelatorio');
 const relatorioController = require('./controller/relatorioController');
+const viewRotas = require('./rotas/viewRotas');
 
 const app = express();
 app.use(express.json())
@@ -11,10 +12,8 @@ const PORT = 3000;
 
 conectarDB();
 
-app.get('/', (req, res)=>{
-    res.send('Servidor funcionando!')
-});
-
+app.use('/', viewRotas);
+app.set('view engine', 'ejs')
 app.use('/relatorio', rotasRelatorio);
 
 app.listen(PORT, ()=>{
