@@ -7,7 +7,7 @@ router.get('/', async(req,res)=>{
         const relatorio = await Relatorio.find();
         res.render('index', {relatorio})
     } catch (error) {
-        res.status(500).send('Erro ao carregar relatório')
+        res.status(500).send('Erro ao carregar relatório!')
     }
 })
 
