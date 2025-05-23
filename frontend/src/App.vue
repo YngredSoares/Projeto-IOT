@@ -1,9 +1,17 @@
 <script setup>
   import HelloWorld from './components/HelloWorld.vue'
   import Relatorio from './components/Relatorios.vue'
+  import SideBar from './components/SideBar.vue'
 </script>
 
 <template>
+  <div class="app-container d-flex" style="height: 100vh;">
+    <SideBar />
+    <div class="p-3 flex-grow-1">
+      <h1>Relatório</h1>
+        <Relatorio/>
+    </div>
+  </div>
   <!-- <div>
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
@@ -13,7 +21,6 @@
     </a>
   </div>
   <HelloWorld msg="Vite + Vue" /> -->
-  <Relatorio/>
 </template>
 
 <style scoped>
