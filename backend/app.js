@@ -2,24 +2,23 @@ const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
 const client = mqtt.connect('mqtt://broker.hivemq.com');
-const rotasRelatorio = require('./rotas/rotasRelatorio');
+const rotasRelatorio = require('./rotas/relatorioRouter');
 const relatorioController = require('./controller/relatorioController');
-const viewRotas = require('./rotas/viewRotas');
 const usuarioRouter = require('./rotas/usuarioRouter');
-
-const app = express();
-app.use(express.json())
+const corsMiddleware = require('./corsConfig');
 const PORT = 3000;
+const app = express();
 
 conectarDB();
 
-app.use('/', viewRotas);
-app.set('view engine', 'ejs')
-app.use('/relatorio', rotasRelatorio);
-app.use('/usuario', usuarioRouter);
+app.use(express.json())
+app.use(corsMiddleware)
+
+app.use('/api/relatorio', rotasRelatorio);
+app.use('/api/usuario', usuarioRouter);
 
 app.listen(PORT, ()=>{
-    console.log(`Servidor rodando na porta ${PORT}`)
+    console.log(`Servidor rodando na porta http://127.0.0.1:${PORT}`);
 });
 
 // Recebe as respostas do MQTT
