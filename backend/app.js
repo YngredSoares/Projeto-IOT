@@ -31,7 +31,7 @@ client.on('connect', () => {
 client.on('message', (topic, message) => {
     try {
         const payload = JSON.parse(message.toString());
-        console.log(message);
+        console.log(payload);
         relatorioController.criarRelatorio(payload);
     } catch(err) {
         console.log({error: err})
