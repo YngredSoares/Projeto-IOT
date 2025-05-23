@@ -8,6 +8,8 @@ exports.criarRelatorio = async function(payload) {
         });
 
         await novoRelatorio.save();
+        return novoRelatorio;
+
     } catch (err) {
         console.log({error: err})
     }
