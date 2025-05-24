@@ -1,17 +1,18 @@
 <template>
-    <div class="row mt-3">
-        <div class="card-body" style="height: 700px;">
-        <Bar
-            v-if="chartDataClean"
-            :data="chartDataClean"
-            :options="chartOptions"
-        />
+    <div style="max-width: 800px; margin: 0 auto;">
+        <div class="card-body" style="height: 400px;">
+            <component
+                v-if="chartData"
+                :is="selectedChart"
+                :data="chartDataClean"
+                :options="chartOptions"
+            />
         </div>
     </div>
 </template>
 
 <script>
-import { Bar } from 'vue-chartjs'
+import { Bar, Line, Bubble, Pie } from 'vue-chartjs'
 import {
     Chart as ChartJS,
     Title,
@@ -19,19 +20,34 @@ import {
     Legend,
     BarElement,
     CategoryScale,
-    LinearScale
+    LinearScale,
+    PointElement,
+    LineElement,
+    ArcElement
 } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(
+    Title,
+    Tooltip,
+    Legend,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    ArcElement
+)
 
 export default {
-    components: { Bar },
+    components: { Bar, Line, Bubble, Pie },
     data() {
         return {
+            selectedChart: 'Bar',
             relatorio: [],
             chartData: null,
             chartOptions: {
                 responsive: true,
+                maintainAspectRatio: false,
                 plugins: {
                     legend: { display: true },
                     title: { display: true, text: 'Leitura de Sensores' }
