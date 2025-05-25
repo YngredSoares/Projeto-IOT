@@ -63,7 +63,6 @@ export default {
             })
             .then(data => {
                 this.relatorio = data;
-                console.log("Valores: ", data)
 
                 const labels = [];
                 const valores = [];
@@ -93,7 +92,6 @@ export default {
     computed: {
         chartDataClean() {
             const cleaned = JSON.parse(JSON.stringify(this.chartData));
-            console.log('📊 chartDataClean:', cleaned);
             return cleaned;
         }
     }
