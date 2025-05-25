@@ -37,7 +37,8 @@ exports.cadastrarAparelho = async (req, res) =>{
 
 exports.atualizarAparelho = async (req, res) => {
     try {
-        const { id } = req.params.id;
+        const { id } = req.params;
+        console.log(id)
 
         const atualizado = await Aparelho.findByIdAndUpdate(id, req.body, {
             new: true,
