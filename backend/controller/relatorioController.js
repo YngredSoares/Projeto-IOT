@@ -1,4 +1,4 @@
-const Relatorio = require('../model/relatorio');
+const Relatorio = require('../model/Relatorio');
 
 exports.criarRelatorio = async function(payload) {
     try {
