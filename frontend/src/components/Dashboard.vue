@@ -1,5 +1,5 @@
 <template>
-    <div style="width: 1000px; height:600px ; margin: 0 auto;">
+    <div style="width: 100%; height:600px ; margin: 0 auto;">
         <div class="card-body d-flex" style="height: 100%;">
             <component
                 v-if="chartData"
