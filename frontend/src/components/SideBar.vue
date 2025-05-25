@@ -15,10 +15,10 @@
                     <ul class="nav h5">
                         <h4 class="mb-3 m-2 h5">Menu</h4>
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link text-white"><i class="bi bi-speedometer2"></i> Dashboard</a>
+                        <a href="/" class="nav-link text-white"><i class="bi bi-speedometer2"></i> Dashboard</a>
                     </li>
                     <li class="nav-item mb-3">
-                        <a href="#" class="nav-link text-white"><i class="bi bi-motherboard"></i> Aparelhos</a>
+                        <a href="/aparelhos" class="nav-link text-white"><i class="bi bi-motherboard"></i> Aparelhos</a>
                     </li>
                     <li class="nav-item mb-3">
                         <a href="#" class="nav-link text-white"><i class="bi bi-file-bar-graph"></i> Relatórios</a>
