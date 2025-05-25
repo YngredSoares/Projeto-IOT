@@ -1,6 +1,10 @@
 <template>
 
     <div class="container">
+        <div class="d-flex align-items-center p-3 mr-1 justify-content-between">
+            <h1>Lista de Aparelhos</h1>
+            <a class="btn btn-success btn-lg" href="#"><i class="bi bi-plus-circle"></i> Novo Aparelho</a>
+        </div>
         <div class="row">
             <div class="col-md-4 mb-4 gap-4" v-for="ap in aparelhos" :key="ap.id">
                 <div class="card p-4" style="width: 350px; height: 270px;">
@@ -10,7 +14,7 @@
                         <p class="card-text">Local: {{ ap.local }}</p>
                         <p class="card-text">Marca: {{ ap.marca }}</p>
                         <p class="card-text">Estado: {{ ap.estado }}</p>
-                        <button class="btn btn-warning" @click="editarProduto(ap.id)">
+                        <button class="btn btn-warning me-2" @click="editarProduto(ap.id)">
                         <i class="bi bi-pencil-square"></i>
                         </button>
                         <button class="btn btn-danger" @click="deletarProduto(ap.id)">
