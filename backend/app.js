@@ -5,6 +5,7 @@ const client = mqtt.connect('mqtt://broker.hivemq.com');
 const rotasRelatorio = require('./rotas/relatorioRouter');
 const relatorioController = require('./controller/relatorioController');
 const usuarioRouter = require('./rotas/usuarioRouter');
+const aparelhoRouter = require('./rotas/aparelhoRouter');
 const corsMiddleware = require('./corsConfig');
 const PORT = 3000;
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.json())
 app.use(corsMiddleware)
 
 app.use('/api/relatorio', rotasRelatorio);
+app.use('/api/aparelhos', aparelhoRouter);
 app.use('/api/usuario', usuarioRouter);
 
 app.listen(PORT, ()=>{
