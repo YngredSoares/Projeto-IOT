@@ -55,3 +55,17 @@ exports.atualizarAparelho = async (req, res) => {
         res.status(500).json({ erro: 'Erro interno do servidor' })
     }
 }
+
+exports.deletarAparelho = async (req, res) => {
+    try {
+        const aparelho = await Aparelho.findById(req.params.id);
+
+        if (!aparelho) return res.status(404).send('Aparelho não encontrado');
+
+        await aparelho.deleteOne();
+
+        res.status(200).send('Aparelho deletado!');
+    } catch (err) {
+        res.status(500).json({ erro: 'Erro interno do servidor' })
+    }
+}
