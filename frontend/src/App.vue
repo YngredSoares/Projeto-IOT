@@ -1,30 +1,42 @@
 <script setup>
   import HelloWorld from './components/HelloWorld.vue'
-  import Relatorio from './components/Dashboard.vue'
+  import Dashboard from './components/Dashboard.vue'
   import SideBar from './components/SideBar.Vue'
 </script>
 
 <template>
-  <div class="app-container d-flex" style="height: 100vh;">
+  <div class="layout d-flex">
+    <!-- Sidebar -->
     <SideBar />
-    <!-- <div class="p-3 flex-grow-1"> -->
-      <!-- <h1>Relatório</h1> -->
-        <Relatorio/>
-    <!-- </div> -->
+
+    <!-- Conteúdo principal -->
+    <main class="main-content">
+      <div class="chart-container">
+        <div class="card-body">
+          <Dashboard />
+        </div>
+      </div>
+    </main>
   </div>
 </template>
 
 <style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
+.main-content {
+  margin-left: 220px; /* largura da sidebar */
+  /* height: 100vh; */
+  /* width: calc(100% - 270px); */
+  display: flex;
+  justify-content: center; 
+  align-items: center;
 }
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
+
+.chart-container {
+  width: 100%;
+  max-width: 1000px;
+  height: 600px;
 }
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
+
+.card-body {
+  height: 100%;
 }
 </style>
