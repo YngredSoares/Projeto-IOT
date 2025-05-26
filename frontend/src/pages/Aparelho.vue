@@ -1,9 +1,21 @@
 <template>
-
-    <div class="container">
-        <div class="d-flex align-items-center p-3 mr-1 justify-content-between">
+    <div class="container-fluidmb-5">
+        <div class="d-flex justify-content-between align-items-center mt-3">
             <h1>Lista de Aparelhos</h1>
-            <a class="btn btn-success btn-lg" href="#"><i class="bi bi-plus-circle"></i> Novo Aparelho</a>
+        </div>
+        <div class="form-group d-flex align-items-center mt-4 mb-4">
+            <form action="#" method="GET" class="d-flex align-items-center">
+                <input type="text" class="form-control me-1" name="filtro" value="" placeholder="Consulta">
+                <button type="button" class="btn btn-danger d-flex align-items-center"><i class="bi bi-eraser-fill"></i></button>
+                <button type="submit" class="btn btn-primary d-flex align-items-center ms-1">
+                    Pesquisar
+                    <i class="bi bi-search ms-1"></i>
+                </button>
+            </form>
+            <button class="btn btn-success ms-2 d-flex justify-content-end" @click="">
+                Cadastrar
+                <i class="bi bi-plus-circle ms-1"></i>
+            </button>
         </div>
         <div class="row">
             <div class="col-md-4 mb-4 gap-4" v-for="ap in aparelhos" :key="ap.id">
@@ -51,8 +63,5 @@
 </script>
 
 <style>
-    .cardas {
-        display: flex;
-        flex-direction: row;
-    }
+
 </style>
