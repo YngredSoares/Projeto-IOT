@@ -2,11 +2,11 @@
   <div class="d-flex justify-content-between ac-controls container mt-4">
     <div class="form-group">
       <label for="ac-select">Selecione o aparelho:</label>
-      <select id="ac-select" class="form-control w-100">
-        <option value="sala">Sala</option>
-        <option value="quarto">Quarto</option>
-        <option value="cozinha">Cozinha</option>
-      </select>
+        <select id="ac-select" class="form-control w-100">
+          <div class="" v-for="ap in aparelhos" :key="ap.id"> 
+            <option value="">{{ ap.nome_aparelho }}</option>
+          </div>
+        </select>
     </div>
 
     <div class="btn-group mt-3">
@@ -20,7 +20,25 @@
 
 <script>
     export default {
-        name: 'Controle'
+        name: 'Controle',
+        data() {
+          return {
+            aparelhos: []
+          }
+        },
+        mounted() {
+          fetch('/api/aparelhos')
+            .then(response => {
+                if (!response.ok) throw new Error('Erro ao buscar dados');
+                return response.json();
+            })
+            .then(data => {
+                this.aparelhos = data
+            })
+            .catch(err => {
+                console.error(err);
+            })
+        }
     }
 </script>
 
