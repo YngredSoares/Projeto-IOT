@@ -1,5 +1,5 @@
 <template>
-    <div class="container-fluidmb-5">
+    <div class="container ms-">
         <div class="d-flex justify-content-between align-items-center mt-3">
             <h1>Lista de Aparelhos</h1>
         </div>
@@ -12,10 +12,10 @@
                     <i class="bi bi-search ms-1"></i>
                 </button>
             </form>
-            <button class="btn btn-success ms-2 d-flex justify-content-end" @click="">
+            <router-link to="/aparelhos/cadastrar" class="btn btn-success ms-2 d-flex justify-content-end">
                 Cadastrar
                 <i class="bi bi-plus-circle ms-1"></i>
-            </button>
+            </router-link>
         </div>
         <div class="row">
             <div class="col-md-4 mb-4 gap-4" v-for="ap in aparelhos" :key="ap.id">

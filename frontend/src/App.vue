@@ -13,6 +13,7 @@
 
 <style scoped>  
 .layout {
+  height: 100vh;
   display: flex;
   justify-content: end;
 }
