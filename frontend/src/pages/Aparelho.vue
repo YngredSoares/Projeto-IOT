@@ -22,7 +22,7 @@
                 <div class="card p-4" style="width: 350px; height: 270px;">
                     <div class="card-body p-0 text-start">
                         <p class="mb-1">Nome</p>
-                        <h2 class="card-title">{{ ap.nome_aparelho }}</h2>
+                        <h2 class="card-title">{{ ap.codigo }} - {{ ap.nome_aparelho }}</h2>
                         <p class="card-text">Local: {{ ap.local }}</p>
                         <p class="card-text">Marca: {{ ap.marca }}</p>
                         <p class="card-text">Estado: {{ ap.estado }}</p>

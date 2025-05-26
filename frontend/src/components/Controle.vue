@@ -4,7 +4,7 @@
       <label for="ac-select">Selecione o aparelho:</label>
         <select id="ac-select" class="form-control w-100">
           <div class="" v-for="ap in aparelhos" :key="ap.id"> 
-            <option value="">{{ ap.nome_aparelho }}</option>
+            <option>{{ ap.nome_aparelho }}</option>
           </div>
         </select>
     </div>
