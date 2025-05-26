@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const AparelhoSchema = new mongoose.Schema({
+    codigo: { type: Number, required: true },
     nome_aparelho: { type: String, required: true },
     local: { type: String, required: true },
     marca: { type: String, required: true },
