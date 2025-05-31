@@ -87,9 +87,9 @@ export default {
         data.forEach((item, index) => {
           const timestamp = item.data || `#${index}`
 
-          // if (!labels.includes(timestamp)) {
-          //   labels.push(timestamp)
-          // }
+          if (!labels.includes(timestamp)) {
+            labels.push(timestamp)
+          }
 
           if (!sensores[item.sensor]) {
             if (item.sensor !== undefined) {
@@ -104,11 +104,13 @@ export default {
             }
           }
 
-          // sensores[item.sensor].data.push(item.valor)
+          if (item.sensor !== undefined) {
+            sensores[item.sensor].data.push(item.valor)
+          }
         })
 
         this.chartData = {
-          // labels: labels,
+          labels: labels,
           datasets: Object.values(sensores)
         }
       })

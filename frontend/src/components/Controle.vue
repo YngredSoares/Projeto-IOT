@@ -1,15 +1,13 @@
 <template>
-  <div class="d-flex justify-content-between ac-controls container mt-4">
-    <div class="form-group">
+  <div class="d-flex justify-content-between align-items-start ac-controls container mt-4">
+    <div class="form-group me-3">
       <label for="ac-select">Selecione o aparelho:</label>
         <select id="ac-select" class="form-control w-100">
-          <div class="" v-for="ap in aparelhos" :key="ap.id"> 
-            <option>{{ ap.nome_aparelho }}</option>
-          </div>
+          <option v-for="ap in aparelhos" :key="ap.id">{{ ap.nome_aparelho }}</option>
         </select>
     </div>
 
-    <div class="btn-group mt-3">
+    <div class="ac-buttons mt-3">
       <button class="btn btn-success"><i class="bi bi-power"></i> Ligar</button>
       <button class="btn btn-danger"><i class="bi bi-power"></i> Desligar</button>
       <button class="btn btn-primary">+ Temperatura</button>
@@ -43,4 +41,14 @@
 </script>
 
 <style>
+.ac-buttons button{
+  border-radius: 12px;
+}
+
+.ac-buttons{
+display: flex;
+flex-wrap: wrap;
+gap: 0.25rem;
+}
+
 </style>
