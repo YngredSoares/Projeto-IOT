@@ -55,10 +55,10 @@ export default {
         scales: {
           x: {
             ticks: {
-              display: false // esconde as labels no eixo X
+              display: false 
             },
             grid: {
-              display: false // opcional: esconde a grade do eixo X
+              display: false
             }
           },
           y: {
@@ -92,7 +92,8 @@ export default {
           }
 
           if (!sensores[item.sensor]) {
-            if (item.sensor !== undefined) {
+            if (item.sensor !== undefined && item.sensor !== 'Iluminosidade') {
+              console
               sensores[item.sensor] = {
                 label: item.sensor,
                 data: [],
@@ -104,7 +105,7 @@ export default {
             }
           }
 
-          if (item.sensor !== undefined) {
+          if (item.sensor !== undefined && item.sensor !== 'Iluminosidade') {
             sensores[item.sensor].data.push(item.valor)
           }
         })
@@ -129,8 +130,7 @@ export default {
 <style>
 
 .dashboard-container{
-    width: 80%;
-    max-width: 1000px;
+    width: 100%;
     margin: 0 auto;
     padding: 2rem;
 }
