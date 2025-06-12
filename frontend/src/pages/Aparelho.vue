@@ -18,7 +18,7 @@
             </router-link>
         </div>
         <div class="row">
-            <div class="col-md-4 mb-4 gap-4" v-for="ap in aparelhos" :key="ap.id">
+            <div class="col-md-4 mb-4 gap-4" v-for="ap in aparelhos" :key="ap._id">
                 <div class="card p-4" style="width: 350px; height: 270px;">
                     <div class="card-body p-0 text-start">
                         <p class="mb-1">Nome</p>
@@ -29,7 +29,7 @@
                         <button class="btn btn-warning me-2" @click="editarProduto(ap.id)">
                         <i class="bi bi-pencil-square"></i>
                         </button>
-                        <button class="btn btn-danger" @click="deletarProduto(ap.id)">
+                        <button class="btn btn-danger" @click="deletarProduto(ap._id)">
                         <i class="bi bi-trash"></i>
                         </button>
                     </div>
@@ -40,6 +40,8 @@
 </template>
 
 <script>
+    import Swal from 'sweetalert2'
+
     export default {
         data() {
             return {
@@ -58,8 +60,49 @@
                 .catch(err => {
                     console.error(err);
                 })
+        },
+        methods: {
+            deletarProduto(id) {
+                Swal.fire({
+                    title: 'Tem certeza?',
+                    text: 'Você deseja mesmo excluir este aparelho?',
+                    icon: 'question',
+                    showCancelButton: true,
+                    confirmButtonColor: '#d33',
+                    cancelButtonColor: '#3085d6',
+                    confirmButtonText: 'Sim, excluir',
+                    cancelButtonText: 'Cancelar'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                    fetch(`/api/aparelhos/${id}`, {
+                        method: 'DELETE'
+                    })
+                        .then(response => {
+                        if (!response.ok) throw new Error('Erro ao deletar aparelho');
+
+                        return Swal.fire({
+                            icon: 'success',
+                            title: 'Deletado!',
+                            text: 'O aparelho foi excluído com sucesso!'
+                        });
+                        })
+                        .then(() => {
+                        this.aparelhos = this.aparelhos.filter(aparelho => aparelho._id !== id);
+                        })
+                        .catch(err => {
+                        console.error(err);
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Erro!',
+                            text: 'Erro ao excluir o aparelho.'
+                        });
+                        });
+                    }
+                });
+            }
         }
-    }
+        }
+
 </script>
 
 <style>
