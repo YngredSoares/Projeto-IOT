@@ -1,8 +1,8 @@
 <template>
   <div :class="route.name === 'Login' ? 'layout-login' : 'layout'">
-      <SideBar v-if="route.name !== 'Login'"/>
+      <SideBar v-if="route.name !== 'Login' && route.name !== 'CadastroUsuario'" />
 
-      <main :class="route.name === 'Login' ? 'main-content-login' : 'main-content'">
+      <main :class="route.name === 'Login' || route.name === 'CadastroUsuario' ? 'main-content-login' : 'main-content'">
         <router-view />
       </main>
   </div>
