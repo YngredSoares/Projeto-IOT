@@ -1,15 +1,22 @@
-<script setup>
-  import SideBar from './components/SideBar.Vue'
-</script>
-
 <template>
   <div class="layout">
-      <SideBar />
-      <main class="main-content">
+      <SideBar v-if="route.name !== 'Login'"/>
+
+      <main v-if="route.name == 'Login'" class="main-content-login">
+        <router-view />
+      </main>
+      <main v-else class="main-content">
         <router-view />
       </main>
   </div>
 </template>
+
+<script setup>
+  import { useRoute } from 'vue-router'
+  import SideBar from './components/SideBar.vue'
+
+  const route = useRoute()
+</script>
 
 <style scoped>  
 .layout {
@@ -20,6 +27,12 @@
 
 .main-content {
     width: 80%;
+    display: flex;
+    flex-direction: column;
+}
+
+.main-content-login {
+    width: 100%;
     display: flex;
     flex-direction: column;
 }
