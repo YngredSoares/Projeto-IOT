@@ -1,11 +1,8 @@
 <template>
-  <div class="layout">
+  <div :class="route.name === 'Login' ? 'layout-login' : 'layout'">
       <SideBar v-if="route.name !== 'Login'"/>
 
-      <main v-if="route.name == 'Login'" class="main-content-login">
-        <router-view />
-      </main>
-      <main v-else class="main-content">
+      <main :class="route.name === 'Login' ? 'main-content-login' : 'main-content'">
         <router-view />
       </main>
   </div>
@@ -23,6 +20,12 @@
   height: 100vh;
   display: flex;
   justify-content: end;
+  padding: 2rem;
+}
+
+.layout-login {
+  height: 100vh;
+  display: flex;
 }
 
 .main-content {
