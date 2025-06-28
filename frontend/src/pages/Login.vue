@@ -32,7 +32,7 @@
 
                     <div class="d-flex align-items-center justify-content-center pb-4">
                         <p class="mb-0 me-2">Não tem uma conta?</p>
-                        <button type="button" class="btn btn-outline-primary">Cadastre-se</button>
+                        <button @click="router.push('/cadastro')" type="button" class="btn btn-outline-primary">Cadastre-se</button>
                     </div>
 
                     </form>
@@ -55,8 +55,10 @@
     </div>
 </template>
 
-<script>
-    
+<script setup>
+    import { useRouter } from 'vue-router'
+
+    const router = useRouter()
 </script>
 
 <style>
