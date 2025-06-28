@@ -10,8 +10,6 @@
     <div class="ac-buttons mt-3">
       <button class="btn btn-success"><i class="bi bi-power"></i> Ligar</button>
       <button class="btn btn-danger"><i class="bi bi-power"></i> Desligar</button>
-      <button class="btn btn-primary">+ Temperatura</button>
-      <button class="btn btn-secondary">- Temperatura</button>
     </div>
   </div>
 </template>
@@ -42,13 +40,13 @@
 
 <style>
 .ac-buttons button{
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .ac-buttons{
-display: flex;
-flex-wrap: wrap;
-gap: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 </style>
