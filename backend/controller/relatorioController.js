@@ -58,7 +58,7 @@ exports.atualizarRelatorio = async function(req, res) {
 
 exports.deletarRelatorio = async function(req, res) {
     try {
-        const relatorio = await Relatorio.findById(req.params.id);
+        const relatorio = await Relatorio.find(req.params.id);
 
         if (!relatorio) return res.status(404).send("Relatorio não encontrado");
 

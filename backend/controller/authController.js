@@ -1,5 +1,5 @@
-const Usuario = require('../models/usuario');
-const jwt = require('jsonwebtiken');
+const Usuario = require('../model/usuario');
+const jwt = require('jsonwebtoken');
 const SECRET = "qualquerSegredo";
 
 exports.SECRET = SECRET;
@@ -15,7 +15,7 @@ exports.login = async (req, res) => {
         if(!usuario){
             return res.status(401).json({erro:"Credenciais inválidas"})
         }
-        const token = jwt.sign({id: usuario_id, login: usuario.login}, SECRET, {
+        const token = jwt.sign({id: usuario._id, login: usuario.login}, SECRET, {
             expiresIn: "1h",
         })
         res.json({token})

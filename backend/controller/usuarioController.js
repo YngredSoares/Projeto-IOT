@@ -1,4 +1,4 @@
-const Usuario = require('../model/Usuario');
+const Usuario = require('../model/usuario');
 
 exports.cadastrarUsuario = async(req, res)=>{
     const {login, senha} = req.body
