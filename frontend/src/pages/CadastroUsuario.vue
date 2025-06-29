@@ -39,11 +39,11 @@
                         <label for="confirmed-senha">Confirme a senha</label>
                     </div>
 
-                    <div class="text-center pt-1 mb-3 pb-1">
+                    <div class="text-center mb-3">
                         <button class="btn btn-primary form-control gradient-custom-3 mb-2" type="button">Cadastrar</button>
                     </div>
 
-                    <div class="d-flex align-items-center justify-content-center pb-4">
+                    <div class="d-flex align-items-center justify-content-center">
                         <p class="mb-0 me-2">Já tem uma conta?</p>
                         <button @click="router.push('/login')" type="button" class="btn btn-outline-primary">Fazer Login</button>
                     </div>

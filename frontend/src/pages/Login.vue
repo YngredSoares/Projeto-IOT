@@ -12,22 +12,29 @@
                         style="width: 80px;" alt="logo">
                     </div>
 
-                    <form>
+                    <form @submit.prevent="handleLogin">
                     <p class = 'mt-4 mb-4 fs-6'>Faça login na sua conta</p>
 
                     <div class="form-floating mb-4">
-                    <input type="email" class="form-control" id="email" placeholder="usuario@exemplo.com">
-                    <label for="email">Usuário</label>
+                    <input type="login" class="form-control" id="login" v-model="credentials.login" required placeholder="Usuário">
+                    <label for="login">Usuário</label>
                     </div>
 
                     <div class="form-floating mb-4">
-                    <input type="password" class="form-control" id="senha" placeholder="Senha">
+                    <input type="password" class="form-control" id="senha"  v-model="credentials.senha" required placeholder="Senha">
                     <label for="senha">Senha</label>
                     </div>
 
                     <div class="text-center pt-1 mb-3 pb-1">
-                        <button class="btn btn-primary form-control gradient-custom-3 mb-2" type="button">Login</button>
+                        <!-- <button class="btn btn-primary form-control gradient-custom-3 mb-2" type="button">Login</button> -->
+                        <button type="submit" class="btn btn-primary form-control gradient-custom-3 mb-2" :disabled="loading">
+                            {{ loading ? 'Entrando ..': 'Login' }}
+                        </button>
                         <a class="text-muted" href="#!">Esqueceu sua senha?</a>
+                    </div>
+
+                    <div v-if="error" class="error">
+                        {{ error }}
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center pb-4">
@@ -56,10 +63,37 @@
 </template>
 
 <script setup>
-    import { useRouter } from 'vue-router'
+import { useRouter } from 'vue-router'
+import { useStore } from 'vuex'
+import { ref } from 'vue'
 
-    const router = useRouter()
+const router = useRouter()
+const store = useStore()
+
+const credentials = ref({
+    login: '',
+    senha: ''
+})
+
+const loading = ref(false)
+const error = ref('')
+
+async function handleLogin() {
+    loading.value = true
+    error.value = ''
+
+    const result = await store.dispatch('auth/login', credentials.value)
+
+    if (result.success) {
+        router.push('/home')
+    } else {
+        error.value = result.message
+    }
+
+    loading.value = false
+}
 </script>
+
 
 <style>
     .format-container {
@@ -89,5 +123,11 @@
             border-top-right-radius: .3rem;
             border-bottom-right-radius: .3rem;
         }
+    }
+
+    .error{
+        color: red;
+        margin-top: 1rem;
+        text-align: center;
     }
 </style>
