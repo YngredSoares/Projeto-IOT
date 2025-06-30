@@ -21,16 +21,16 @@ const router = createRouter({
     routes
 })
 
-router.beforeEach((to,from,next)=>{
-  const isAuthenticated = store.getters['auth/isAuthenticated']
-  console.log("Auth status:", isAuthenticated)
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = store.getters['auth/isAuthenticated'] || !!localStorage.getItem('token');
+  console.log("Auth status:", isAuthenticated);
 
   if (to.meta.requiresAuth && !isAuthenticated) {
     next('/login')
-  } 
+  }
   else if (to.meta.guest && isAuthenticated) {
     next('/home')
-  } 
+  }
   else {
     next()
   }
