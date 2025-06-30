@@ -31,7 +31,7 @@
                 <div class="rodape-nav">
                     <ul class="nav h5 p-3">
                         <li class="nav-item mb-5">
-                            <a href="#" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                            <a @click="logout" href="#" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -42,7 +42,13 @@
 
 <script>
 export default {
-  name: 'Sidebar'
+  name: 'Sidebar',
+  methods: {
+    logout() {
+      this.$store.dispatch('auth/logout')
+      this.$router.push('/login')
+    }
+  }
 }
 </script>
 
