@@ -21,11 +21,11 @@
                         style="width: 80px;" alt="logo">
                     </div>
 
-                    <form>
+                    <form @submit.prevent="createUser">
                     <p class = 'mt-4 mb-4 fs-6'>Cadastre-se</p>
 
                     <div class="form-floating mb-4">
-                        <input type="login" class="form-control" id="login" placeholder="Nome de usuário">
+                        <input type="login" class="form-control" id="login" v-model="credentials.login" placeholder="Nome de usuário">
                         <label for="login">Nome de usuário</label>
                     </div>
 
@@ -35,12 +35,16 @@
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="confirmed-senha" placeholder="Confirme a Senha">
+                        <input type="password" class="form-control" id="confirmed-senha" v-model="credentials.senha" placeholder="Confirme a Senha">
                         <label for="confirmed-senha">Confirme a senha</label>
                     </div>
 
                     <div class="text-center mb-3">
-                        <button class="btn btn-primary form-control gradient-custom-3 mb-2" type="button">Cadastrar</button>
+                        <button type="submit" class="btn btn-primary form-control gradient-custom-3 mb-2">Cadastrar</button>
+                    </div>
+
+                    <div v-if="error" class="error">
+                        {{ error }}
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center">
@@ -60,10 +64,42 @@
 
 <script setup>
     import { useRouter } from 'vue-router'
+    import { useStore } from 'vuex'
+    import { ref } from 'vue'
 
+    const store = useStore()
     const router = useRouter()
+
+    const credentials = ref({
+        login: '',
+        senha: ''
+    })
+
+    const loading = ref(false)
+    const error = ref('')
+
+    async function createUser() {
+        loading.value = true
+        error.value = ''
+
+        const result = await store.dispatch('usuario/createUser', credentials.value)
+
+        if (result.success) {
+            router.push('/login')
+        } else {
+            error.value = result.message
+        }
+
+        loading.value = false
+    }
+
 </script>
 
 
 <style>
+    .error{
+        color: red;
+        margin-top: 1rem;
+        text-align: center;
+    }
 </style>
