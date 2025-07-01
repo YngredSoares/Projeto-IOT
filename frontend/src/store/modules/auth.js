@@ -40,7 +40,7 @@ const actions = {
             console.error('Error no login: ', error)
             return {
                 success:false,
-                message: error.response?.data?.message || 'Erro ao fazer login'
+                message: error.response?.data?.message || 'Usuário ou senha inválidas.'
             }
         }
     },
