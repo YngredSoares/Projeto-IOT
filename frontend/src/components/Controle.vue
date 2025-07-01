@@ -8,15 +8,20 @@
     </div>
 
     <div class="ac-buttons mt-3">
-      <button class="btn btn-success"><i class="bi bi-power"></i> Ligar</button>
-      <button class="btn btn-danger"><i class="bi bi-power"></i> Desligar</button>
-      <button class="btn btn-primary">+ Temperatura</button>
-      <button class="btn btn-secondary">- Temperatura</button>
+      <button class="btn btn-success" @click="enviarComando('ligar_ar')">
+        <i class="bi bi-power"></i> Ligar
+      </button>
+      <button class="btn btn-danger" @click="enviarComando('desligar_ar')">
+        <i class="bi bi-power"></i> Desligar
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+    import axios from 'axios'
+    import Swal from 'sweetalert2'
+
     export default {
         name: 'Controle',
         data() {
@@ -36,19 +41,36 @@
             .catch(err => {
                 console.error(err);
             })
+        },
+        methods: {
+          enviarComando(comando) {
+            axios.post('/api/comando', { comando })
+              .then(response => {
+                console.log("Comando enviado:", response.data);
+                
+                if (comando == 'ligar_ar') {
+                  Swal.fire("o Ar está sendo ligado!");
+                } else {
+                  Swal.fire("o Ar está sendo desligado!");
+                }
+              })
+              .catch(err => {
+                console.error("Erro ao enviar comando:", err);
+              });
+          }
         }
     }
 </script>
 
 <style>
 .ac-buttons button{
-  border-radius: 12px;
+  border-radius: 8px;
 }
 
 .ac-buttons{
-display: flex;
-flex-wrap: wrap;
-gap: 0.25rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
 }
 
 </style>

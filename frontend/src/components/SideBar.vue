@@ -6,7 +6,7 @@
                     <img src="../assets/vue.svg" alt="Foto de perfil" style="width:40px;" class="rounded-pill"> 
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="mb-0 text-white">Nome Usuário</h5>
+                    <h5 class="mb-0 text-white">{{ user }}</h5>
                     <a href="#" class="text-info small">Editar perfil</a>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                 <div class="rodape-nav">
                     <ul class="nav h5 p-3">
                         <li class="nav-item mb-5">
-                            <a href="#" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Logout</a>
+                            <a @click="logout" href="#" class="nav-link text-white"><i class="bi bi-box-arrow-left"></i> Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -41,8 +41,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'Sidebar'
+    name: 'Sidebar',
+        computed: {
+        ...mapGetters('auth', ['user'])
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('auth/logout')
+            this.$router.push('/login')
+        }
+    }
 }
 </script>
 

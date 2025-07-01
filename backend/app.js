@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
@@ -91,6 +92,22 @@ async function processarRelatorio(payload) {
     } catch (err) {
         console.log('Erro ao processar relatório:', err);
     }
-
 };
+
+app.post('/api/comando', (req, res) => {
+  const { comando } = req.body;
+
+  if (!comando) {
+    return res.status(400).json({ error: "Comando não informado" });
+  }
+
+  client.publish('mauri/enviarComando', comando, (err) => {
+    if (err) {
+      console.error("Erro ao publicar no MQTT", err);
+      return res.status(500).json({ error: "Erro ao enviar comando" });
+    }
+    console.log(`Comando '${comando}' publicado no tópico mauri/enviarComando`);
+    res.json({ success: true });
+  });
+});
 
