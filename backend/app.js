@@ -34,14 +34,23 @@ client.on('connect', () => {
 });
 
 client.on('message', async (topic, message) => {
+    const rawMessage = message.toString();
+    console.log("\nMensagem recebida:", rawMessage);
+
+    let payload;
+
     try {
-        const payload = JSON.parse(message.toString());
-        console.log("\nO payload está sendo processado: \n", payload);
-
-        await processarRelatorio(payload);
-
+        payload = JSON.parse(rawMessage);
     } catch (err) {
-        console.log({ error: err });
+        console.warn("Mensagem ignorada: não é um JSON válido.");
+        return;
+    }
+
+    try {
+        console.log("\nPayload válido sendo processado:", payload);
+        await processarRelatorio(payload);
+    } catch (err) {
+        console.error("Erro ao processar relatório:", err.message);
     }
 });
 
@@ -52,41 +61,22 @@ async function processarRelatorio(payload) {
     try {
         await relatorioController.criarRelatorio(payload);
 
-        const respostaLuminosidade = payload.sensor === "Luminosidade" && payload.valor === "0.00"; //resposta do sensor de luminosidade
+        console.log(payload)
 
-        let timestampSensorMovimento;
-        if (payload.sensor === "Movimento" && payload.valor === "1") {
-            timestampSensorMovimento = new Date(payload.timestamp); //caso o sensor de movimento seja acionado essa variavel guarda o time
-        }
+        const respostaLuminosidade = payload.sensor === "Luminosidade" && payload.valor === "0.00";
+        const respostaMovimento = payload.sensor === "Movimento" && payload.valor === "1";
 
-        const respostaMovimentoUltimosMinutos = timestampSensorMovimento ? Date.now() - timestampSensorMovimento.getTime() >= 2 * 60 * 1000 : false;
+        console.log("Luminosidade: " + respostaLuminosidade)
+        console.log("Movimento: " + respostaMovimento)
 
-        //se o sensor de Luz estiver ativo ou o sensor de movimento foi ativado nos ultimos 2 minutos -> MANTER AR LIGADO
-        if (respostaLuminosidade || !respostaMovimentoUltimosMinutos) {
-
-            // console.log(`Sensor ${payload.sensor} ativado! Enviando mensagem para o ESP32.`);
-
-            if (!statusArCondicionado) { // se o ar estiver desligado -> MANDAR COMANDO LIGAR
-                client.publish('mauri/enviarComando', JSON.stringify({
-                    acao: 'ligar_ar'
-                }));
-
-                statusArCondicionado = true; //altera o status do ar para LIGADO
-                console.log("AR LIGADO")
-            } else { // senao -> O AR JA ESTAVA LIGADO
-                client.publish('mauri/enviarComando', JSON.stringify({
-                    acao: 'o ar ja esta ligado'
-                }));
-                console.log("AR JA ESTAVA LIGADO")
-            }
-
-
-        } else { //se o sensor de luz nao estiver mandando sinal e o de movimento nao tiver ativo ha 2 minutos -> MANDAR COMANDO DESLIGAR
-            client.publish('mauri/enviarComando', JSON.stringify({
-                acao: 'desligar_ar'
-            }));
-            statusArCondicionado = false; //altera o status do ar para DESLIGADO
-            // console.log(`Sensor ${payload.sensor} desativado. Status do ar ${statusArCondicionado}`);
+        if (respostaLuminosidade || respostaMovimento && !statusArCondicionado) {
+            client.publish('mauri/enviarComando', 'ligar_ar');
+            console.log("ligar_ar ")
+            statusArCondicionado = true;
+        } else {
+            client.publish('mauri/enviarComando', 'desligar_ar');
+            console.log("{ ação: desligar_ar }")
+            statusArCondicionado = false;
         }
 
     } catch (err) {
