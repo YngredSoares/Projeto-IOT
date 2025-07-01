@@ -2,7 +2,7 @@ import api from '@/services/api'
 
 const state = {
     token: localStorage.getItem('token') || null,
-    user: null,
+    user: JSON.parse(localStorage.getItem('user')) || null,
     isAuthenticated: !!localStorage.getItem('token')
 }
 
@@ -16,9 +16,11 @@ const mutations = {
         state.token=null
         state.isAuthenticated=false
         localStorage.removeItem('token')
+        localStorage.removeItem('user')
     },
     SET_USER(state,user){
         state.user=user
+        localStorage.setItem('user', JSON.stringify(user))
     }
 }
 

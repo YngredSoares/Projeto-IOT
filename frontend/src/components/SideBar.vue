@@ -6,7 +6,7 @@
                     <img src="../assets/vue.svg" alt="Foto de perfil" style="width:40px;" class="rounded-pill"> 
                 </div>
                 <div class="d-flex flex-column justify-content-center">
-                    <h5 class="mb-0 text-white">Nome Usuário</h5>
+                    <h5 class="mb-0 text-white">{{ user }}</h5>
                     <a href="#" class="text-info small">Editar perfil</a>
                 </div>
             </div>
@@ -41,14 +41,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  name: 'Sidebar',
-  methods: {
-    logout() {
-      this.$store.dispatch('auth/logout')
-      this.$router.push('/login')
+    name: 'Sidebar',
+        computed: {
+        ...mapGetters('auth', ['user'])
+    },
+    methods: {
+        logout() {
+            this.$store.dispatch('auth/logout')
+            this.$router.push('/login')
+        }
     }
-  }
 }
 </script>
 
