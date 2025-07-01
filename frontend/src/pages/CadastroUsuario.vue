@@ -30,12 +30,12 @@
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="senha" placeholder="Senha">
+                        <input type="password" class="form-control" id="senha" v-model="credentials.senha" placeholder="Senha">
                         <label for="senha">Senha</label>
                     </div>
 
                     <div class="form-floating mb-4">
-                        <input type="password" class="form-control" id="confirmed-senha" v-model="credentials.senha" placeholder="Confirme a Senha">
+                        <input type="password" class="form-control" id="confirmed-senha" v-model="credentials.confirmsenha" placeholder="Confirme a Senha">
                         <label for="confirmed-senha">Confirme a senha</label>
                     </div>
 
@@ -72,7 +72,8 @@
 
     const credentials = ref({
         login: '',
-        senha: ''
+        senha: '',
+        confirmsenha:''
     })
 
     const loading = ref(false)
@@ -81,6 +82,13 @@
     async function createUser() {
         loading.value = true
         error.value = ''
+
+        //Validação
+        if(credentials.value.senha !== credentials.value.confirmsenha){
+            error.value = 'Senha e confirmação de senha devem ser iguais.';
+            loading.value = false;
+            return;
+        }
 
         const result = await store.dispatch('usuario/createUser', credentials.value)
 
