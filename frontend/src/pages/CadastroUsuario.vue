@@ -84,8 +84,8 @@
         error.value = ''
 
         //Validação
-        if(credentials.value.senha !== credentials.value.confirmsenha){
-            error.value = 'Senha e confirmação de senha devem ser iguais.';
+        if (credentials.value.senha !== credentials.value.confirmsenha) {
+            error.value = 'As senhas digitadas não coincidem. Verifique e tente novamente.';
             loading.value = false;
             return;
         }
