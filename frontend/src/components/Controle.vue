@@ -8,13 +8,19 @@
     </div>
 
     <div class="ac-buttons mt-3">
-      <button class="btn btn-success"><i class="bi bi-power"></i> Ligar</button>
-      <button class="btn btn-danger"><i class="bi bi-power"></i> Desligar</button>
+      <button class="btn btn-success" @click="enviarComando('ligar_ar')">
+        <i class="bi bi-power"></i> Ligar
+      </button>
+      <button class="btn btn-danger" @click="enviarComando('desligar_ar')">
+        <i class="bi bi-power"></i> Desligar
+      </button>
     </div>
   </div>
 </template>
 
 <script>
+    import axios from 'axios'
+
     export default {
         name: 'Controle',
         data() {
@@ -34,6 +40,17 @@
             .catch(err => {
                 console.error(err);
             })
+        },
+        methods: {
+          enviarComando(comando) {
+            axios.post('/api/comando', { comando })
+              .then(response => {
+                console.log("Comando enviado:", response.data);
+              })
+              .catch(err => {
+                console.error("Erro ao enviar comando:", err);
+              });
+          }
         }
     }
 </script>

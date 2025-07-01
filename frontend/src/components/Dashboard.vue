@@ -120,7 +120,7 @@ export default {
   },
   mounted() {
     this.fetchDados()
-    this.intervalId = setInterval(this.fetchDados, 10000) 
+    this.intervalId = setInterval(this.fetchDados, 20000) 
   },
   beforeUnmount() {
     clearInterval(this.intervalId)
