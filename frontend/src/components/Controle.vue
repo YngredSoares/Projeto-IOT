@@ -20,6 +20,7 @@
 
 <script>
     import axios from 'axios'
+    import Swal from 'sweetalert2'
 
     export default {
         name: 'Controle',
@@ -46,6 +47,12 @@
             axios.post('/api/comando', { comando })
               .then(response => {
                 console.log("Comando enviado:", response.data);
+                
+                if (comando == 'ligar_ar') {
+                  Swal.fire("o Ar está sendo ligado!");
+                } else {
+                  Swal.fire("o Ar está sendo desligado!");
+                }
               })
               .catch(err => {
                 console.error("Erro ao enviar comando:", err);
