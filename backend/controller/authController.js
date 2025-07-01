@@ -1,6 +1,6 @@
 const Usuario = require('../model/usuario');
 const jwt = require('jsonwebtoken');
-const SECRET = "qualquerSegredo";
+const SECRET = process.env.jwt_SECRET;
 
 exports.SECRET = SECRET;
 

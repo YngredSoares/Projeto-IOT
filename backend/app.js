@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express');
 const conectarDB = require('./database');
 const mqtt = require('mqtt');
